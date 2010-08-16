@@ -19,6 +19,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
 #include <unistd.h>
 
@@ -106,6 +107,7 @@ void usage(FILE *fd)
       "  -t <name>      Timecode name\n"
       "  -i <program>   Importer (default '%s')\n"
       "  -s <program>   Library scanner (default '%s')\n"
+      "  -p             Activate deck protection\n"
       "  -h             Display this message\n\n",
       DEFAULT_IMPORTER, DEFAULT_SCANNER);
 
@@ -394,6 +396,12 @@ int main(int argc, char *argv[])
 
             argv += 2;
             argc -= 2;
+
+        } else if(!strcmp(argv[0], "-p")) {
+            iface.deck_protection = true;
+
+            argv++;
+            argc--;
 
         } else {
             fprintf(stderr, "'%s' argument is unknown; try -h.\n", argv[0]);

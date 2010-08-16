@@ -20,12 +20,14 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include <stdbool.h>
 #include "track.h"
 
 #define PLAYER_RATE 44100
 #define PLAYER_CHANNELS 2
 
 struct player_t {
+    bool playing; /* flag if deck is running */
     int reconnect; /* Re-sync the offset at next opportunity */
 
     /* Current playback parameters */
