@@ -1,0 +1,94 @@
+#!/bin/sh
+#
+# Copyright (C) 2010 Mark Hills <mark@pogo.org.uk>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License version 2 for more details.
+#
+# You should have received a copy of the GNU General Public License
+# version 2 along with this program; if not, write to the Free
+# Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+# MA 02110-1301, USA.
+#
+
+OUTPUT=.config
+
+# Set some defaults and parse the command line
+
+PREFIX=
+ALSA=0
+JACK=0
+OSS=0
+
+while [ $# -ge 1 ]; do
+	case $1 in
+	--help)
+		echo -n "Usage: configure"
+		echo -n " [--prefix <dir>]"
+		echo -n " [--enable-alsa]"
+		echo -n " [--enable-jack]"
+		echo -n " [--enable-oss]"
+		echo
+		exit 0
+		;;
+	--enable-alsa)
+		ALSA=1
+		;;
+	--enable-jack)
+		JACK=1
+		;;
+	--enable-oss)
+		OSS=1
+		;;
+	--prefix)
+		if [ -z "$2" ]; then
+			echo "--prefix requires a pathname argument" >&2
+			exit 1
+		fi
+		PREFIX=$2
+		shift
+	esac
+
+	shift
+done
+
+# Construct the output file
+
+> $OUTPUT
+
+if [ -n "$PREFIX" ]; then
+	echo "Installation prefix $PREFIX"
+	echo "PREFIX = $PREFIX" >> $OUTPUT
+fi
+
+if [ $ALSA = 1 ]; then
+	echo "ALSA enabled"
+	echo "ALSA = yes" >> $OUTPUT
+else
+	echo "ALSA disabled"
+fi
+
+if [ $JACK = 1 ]; then
+	echo "JACK enabled"
+	echo "JACK = yes" >> $OUTPUT
+else
+	echo "JACK disabled"
+fi
+
+if [ $OSS = 1 ]; then
+	echo "OSS enabled"
+	echo "OSS = yes" >> $OUTPUT
+else
+	echo "OSS disabled"
+fi
+
+# Explain the next step
+
+echo "Be sure to run 'make clean' if you have changed the configuration."
+echo "Run 'make' to compile xwax."

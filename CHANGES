@@ -1,0 +1,52 @@
+v0.7 (2010-02-26)
+-----------------
+
+* Multiple crates in music selector (Yves Adler)
+* Fix a potential buffer overflow (Matej Laitl)
+* Higher quality resampler
+* Improved pitch stability over long mixes
+* Installation script and man page for distributions
+* Moved from Bitstream Vera to DejaVu font
+* Minor fixes
+
+Acknowledgements: Yves Adler, Matej Laitl
+
+v0.6 (2009-09-03)
+-----------------
+
+* Modular scanning of music library
+* Improved parsing of pathnames
+* Decreased memory use of timecode decoder
+* Minor fixes
+
+Acknowledgements: Yves Adler
+
+v0.5 (2009-07-03)
+-----------------
+
+* Configurable sample rates
+* Timecode support for MixVibes vinyls
+* Rewritten timecode decoder with 4x resolution
+* Rewritten timecode tracking with improved accuracy
+* JACK audio device support
+* Clearer display of current position in the track overview
+* Minor fixes
+
+Acknowledgements: Daniel Fasnacht, Yves Adler
+
+v0.4 (2008-05-07)
+-----------------
+
+* Timecode improvements
+
+v0.3 (2007-12-04)
+-----------------
+
+* ALSA device support
+* Timecode optimisations
+* Minor fixes
+
+v0.2 (2007-06-12)
+-----------------
+
+* First open-source release
