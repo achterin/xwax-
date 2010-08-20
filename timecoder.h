@@ -56,6 +56,7 @@ struct timecoder_channel_t {
 
 struct timecoder_t {
     struct timecode_def_t *def;
+    double speed;
 
     /* Precomputed values */
 
@@ -84,8 +85,8 @@ struct timecoder_t {
 
 void timecoder_free_lookup(void);
 
-int timecoder_init(struct timecoder_t *tc, const char *def_name,
-		   unsigned int sample_rate);
+int timecoder_init(struct timecoder_t *tc, const char *def_name, double speed,
+                   unsigned int sample_rate);
 void timecoder_clear(struct timecoder_t *tc);
 
 int timecoder_monitor_init(struct timecoder_t *tc, int size);
@@ -96,11 +97,11 @@ void timecoder_submit(struct timecoder_t *tc, signed short *pcm, size_t npcm);
 signed int timecoder_get_position(struct timecoder_t *tc, float *when);
 
 
-/* Return the pitch, based on filtered cycles of the sine wave */
+/* Return the pitch relative to reference playback speed */
 
 static inline float timecoder_get_pitch(struct timecoder_t *tc)
 {
-    return pitch_current(&tc->pitch);
+    return pitch_current(&tc->pitch) / tc->speed;
 }
 
 
@@ -115,11 +116,20 @@ static inline unsigned int timecoder_get_safe(struct timecoder_t *tc)
 
 
 /* The resolution of the timecode. This is the number of bits per
- * second, which corresponds to the frequency of the sine wave */
+ * second at reference playback speed */
 
-static inline int timecoder_get_resolution(struct timecoder_t *tc)
+static inline double timecoder_get_resolution(struct timecoder_t *tc)
 {
-    return tc->def->resolution;
+    return tc->def->resolution * tc->speed;
+}
+
+
+/* The number of revolutions per second of the timecode vinyl,
+ * used only for visual display */
+
+static inline double timecoder_revs_per_sec(struct timecoder_t *tc)
+{
+    return (33.0 + 1.0 / 3) * tc->speed / 60;
 }
 
 #endif
