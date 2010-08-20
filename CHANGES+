@@ -4,6 +4,7 @@ v0.2 (2010-XX-XX)
 ** based on xwax v0.8 beta 1 by Mark Hills <mark@pogo.org.uk>
 
 * Merged to xwax v0.8 beta 1
+* Merged connect & disconnect function keys into one - now xwax+ supports up to 4 decks (idea by rcn)
 
 
 v0.1 (2010-08-17)

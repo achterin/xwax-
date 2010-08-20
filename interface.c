@@ -103,8 +103,7 @@
 
 #define FUNC_LOAD 0
 #define FUNC_RECUE 1
-#define FUNC_DISCONNECT 2
-#define FUNC_RECONNECT 3
+#define FUNC_TOGGLECONNECT 2
 
 
 /* State variables used to trigger certain actions */
@@ -1235,11 +1234,11 @@ static bool handle_key(struct interface_t *in, struct selector_t *sel,
     } else if (key >= SDLK_F1 && key <= SDLK_F12) {
         int func, deck;
 
-        /* Handle the function key press in groups of four --
-	 * F1-F4 (deck 0), F5-F8 (deck 1) etc. */
+	/* Handle the function key press in groups of three --
+	 * F1-F3 (deck 0), F4-F6 (deck 1) etc. */
 
-        func = (key - SDLK_F1) % 4;
-        deck = (key - SDLK_F1) / 4;
+        func = (key - SDLK_F1) % 3;
+        deck = (key - SDLK_F1) / 3;
 
         if (deck < in->players) {
             pl = in->player[deck];
@@ -1270,12 +1269,11 @@ static bool handle_key(struct interface_t *in, struct selector_t *sel,
                 player_recue(pl);
                 break;
 
-            case FUNC_DISCONNECT:
-                player_disconnect_timecoder(pl);
-                break;
-
-            case FUNC_RECONNECT:
-                player_connect_timecoder(pl, in->timecoder[deck]);
+            case FUNC_TOGGLECONNECT:
+                if (pl->timecoder == NULL)
+                    player_connect_timecoder(pl, in->timecoder[deck]);
+                else
+                    player_disconnect_timecoder(pl);
                 break;
             }
         }

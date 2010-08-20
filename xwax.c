@@ -37,7 +37,7 @@
 #include "track.h"
 #include "xwax.h"
 
-#define MAX_DECKS 3
+#define MAX_DECKS 4
 
 #define DEFAULT_OSS_BUFFERS 8
 #define DEFAULT_OSS_FRAGMENT 7
