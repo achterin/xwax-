@@ -1167,6 +1167,16 @@ static bool handle_key(struct interface_t *in, struct selector_t *sel,
         selector_search_refine(sel, (key - SDLK_a) + 'a');
         return true;
 
+    } else if (mod & KMOD_CTRL && key >= SDLK_1 && key <= SDLK_4) {
+        switch (key) {
+            case SDLK_1: timecoder_toggle_rpm(in->timecoder[0]); break;
+            case SDLK_2: timecoder_toggle_rpm(in->timecoder[1]); break;
+            case SDLK_3: timecoder_toggle_rpm(in->timecoder[2]); break;
+            case SDLK_4: timecoder_toggle_rpm(in->timecoder[3]); break;
+            default: break;
+        }
+        return true;
+
     } else if (key >= SDLK_0 && key <= SDLK_9) {
         selector_search_refine(sel, (key - SDLK_0) + '0');
         return true;

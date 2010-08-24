@@ -96,6 +96,8 @@ void timecoder_submit(struct timecoder_t *tc, signed short *pcm, size_t npcm);
 
 signed int timecoder_get_position(struct timecoder_t *tc, float *when);
 
+void timecoder_toggle_rpm(struct timecoder_t *tc);
+
 
 /* Return the pitch relative to reference playback speed */
 

@@ -526,3 +526,14 @@ signed int timecoder_get_position(struct timecoder_t *tc, float *when)
     
     return -1;
 }
+
+/* Toggles between 33 and 45rpm on a given deck */
+
+void timecoder_toggle_rpm(struct timecoder_t *tc)
+{
+    if (tc->speed == 1.00)
+        tc->speed = 1.35; // switch to 45rpm
+    else if (tc->speed == 1.35)
+        tc->speed = 1.00; // switch to 33rpm
+    
+}
