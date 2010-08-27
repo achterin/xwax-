@@ -1169,10 +1169,50 @@ static bool handle_key(struct interface_t *in, struct selector_t *sel,
 
     } else if (mod & KMOD_CTRL && key >= SDLK_1 && key <= SDLK_4) {
         switch (key) {
-            case SDLK_1: timecoder_toggle_rpm(in->timecoder[0]); break;
-            case SDLK_2: timecoder_toggle_rpm(in->timecoder[1]); break;
-            case SDLK_3: timecoder_toggle_rpm(in->timecoder[2]); break;
-            case SDLK_4: timecoder_toggle_rpm(in->timecoder[3]); break;
+            case SDLK_1:
+                pl = in->player[0];
+                if (!pl->playing) {
+                    timecoder_toggle_rpm(in->timecoder[0]);
+                    pl->reconnect_offset = true;
+                }
+                else {
+                    player_locks[0] = SDL_GetTicks();
+                    fprintf(stderr, "Deck 0 is locked!\n");
+                }
+                break;
+            case SDLK_2:
+                pl = in->player[1];
+                if (!pl->playing) {
+                    timecoder_toggle_rpm(in->timecoder[1]);
+                    pl->reconnect_offset = true;
+                }
+                else {
+                    player_locks[1] = SDL_GetTicks();
+                    fprintf(stderr, "Deck 1 is locked!\n");
+                }
+                break;
+            case SDLK_3:
+                pl = in->player[2];
+                if (!pl->playing) {
+                    timecoder_toggle_rpm(in->timecoder[2]);
+                    pl->reconnect_offset = true;
+                }
+                else {
+                    player_locks[2] = SDL_GetTicks();
+                    fprintf(stderr, "Deck 2 is locked!\n");
+                }
+                break;
+            case SDLK_4:
+                pl = in->player[3];
+                if (!pl->playing) {
+                    timecoder_toggle_rpm(in->timecoder[3]);
+                    pl->reconnect_offset = true;
+                }
+                else {
+                    player_locks[4] = SDL_GetTicks();
+                    fprintf(stderr, "Deck 4 is locked!\n");
+                }
+                break;
             default: break;
         }
         return true;

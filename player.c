@@ -145,6 +145,7 @@ void player_init(struct player_t *pl)
 {
     pl->playing = false;
     pl->reconnect = 0;
+    pl->reconnect_offset = false;
 
     pl->position = 0.0;
     pl->offset = 0.0;
@@ -265,6 +266,13 @@ void player_collect(struct player_t *pl, signed short *pcm,
             /* Jump the track to the time */
             
             pl->position = pl->target_position;
+
+            /* Reset the offset on next cueing */
+            if (pl->reconnect_offset) {
+                player_recue(pl);
+                pl->reconnect_offset = false;
+            }
+
             fprintf(stderr, "Seek to new position %.2lfs.\n", pl->position);
 
         } else if (fabs(pl->pitch) > SYNC_PITCH) {

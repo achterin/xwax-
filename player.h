@@ -29,6 +29,7 @@
 struct player_t {
     bool playing; /* flag if deck is running */
     int reconnect; /* Re-sync the offset at next opportunity */
+    bool reconnect_offset; /* Reset the offset on next cueing */
 
     /* Current playback parameters */
 

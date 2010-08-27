@@ -16,6 +16,7 @@ v0.1 (2010-08-17)
 
 * Deck Protection Implementation (idea by Yves Adler)
 
+
 *** New Key-Functions
 * On-the-fly rpm switching
 CTRL + 1-4: switch rpm mode on given deck (1-4)
